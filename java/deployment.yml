@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stress-java
+spec:
+  selector:
+    app: stress-java
+  ports:
+    - protocol: TCP
+      port: 8080
+      name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress-java
+  annotations:
+    kubernetes.io/change-cause: registry.cn-beijing.aliyuncs.com/lemonbox/stress-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stress-java
+  template:
+    metadata:
+      labels:
+        app: stress-java
+    spec:
+      containers:
+        - name: stress-java
+          image: registry.cn-beijing.aliyuncs.com/lemonbox/stress-java
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 2000m
+              memory: "5000Mi"
+            limits:
+              cpu: 2000m
+              memory: "5000Mi"
+          volumeMounts:
+            - name: timezone
+              mountPath: /etc/localtime
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: aliyun-registry
+      volumes:
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
