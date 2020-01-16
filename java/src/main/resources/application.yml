@@ -2,5 +2,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://171.31.30.202:27017/test
+      uri: mongodb://ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn:27017/test
 #     ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn

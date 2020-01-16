@@ -7,14 +7,14 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: ec2-52-81-94-45.cn-north-1.compute.amazonaws.com.cn
+    - host: ec2-52-83-66-128.cn-northwest-1.compute.amazonaws.com.cn
       http:
         paths:
           - path: /java(/|$)(.*)
             backend:
               serviceName: stress-java
               servicePort: 8080
-    - host: ec2-52-81-94-45.cn-north-1.compute.amazonaws.com.cn
+    - host: ec2-52-83-66-128.cn-northwest-1.compute.amazonaws.com.cn
       http:
         paths:
           - path: /node(/|$)(.*)
@@ -22,18 +22,3 @@ spec:
               serviceName: stress-node
               servicePort: 3000
 
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: stress-ingress
-  namespace: ingress-nginx
-spec:
-  selector:
-    app: default-http-backend
-  ports:
-    - protocol: TCP
-      targetPort: 8080
-      port: 80
-  type: NodePort

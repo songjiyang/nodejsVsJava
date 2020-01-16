@@ -1,4 +1,5 @@
 java/target
 nodejs/node_modules
 .idea
-nodjes/logs
+nodejs/logs
+stress_record/

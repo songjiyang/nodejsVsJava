@@ -55,7 +55,8 @@ router.get('/api/v1/listQuestionaire', async function (req, res) {
 let db;
 async function getMongoClient() {
   try {
-    const mongoUri = 'mongodb://171.31.30.202:27017/test'
+    const mongoUri = 'mongodb://ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn:27017/test';
+    console.log(mongoUri)
     // ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn
     cliect = await mongodb.connect(mongoUri);
     db = cliect.db('test')

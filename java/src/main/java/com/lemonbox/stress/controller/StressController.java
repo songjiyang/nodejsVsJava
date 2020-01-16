@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ public class StressController {
     private static Logger logger = LoggerFactory.getLogger(StressController.class);
     @Autowired
     MongoTemplate template;
+    @Value("${spring.data.mongodb.uri}")
+    String url;
 
     @RequestMapping(value = "/hello")
     public CommonResult hello() {
@@ -82,12 +85,12 @@ public class StressController {
         long free = run.freeMemory()/(1024*1024);
 
         long usable = max - total + free;
-        Map<String, Long> m = new HashMap<>();
-        m.put("最大内存(MB) = ", max);
-        m.put("已分配内存(MB) = ", total);
-        m.put("已分配内存中的剩余空间(MB) = ", free);
-        m.put("最大可用内存(MB) = ", usable);
-
+        Map<String, String> m = new HashMap<>();
+        m.put("最大内存(MB) = ", max+"");
+        m.put("已分配内存(MB) = ", total+"");
+        m.put("已分配内存中的剩余空间(MB) = ", free+"");
+        m.put("最大可用内存(MB) = ", usable+"");
+        m.put("MongoUrl = ", url);
         return CommonResult.success(m);
     }
 }

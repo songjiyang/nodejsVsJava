@@ -1,6 +1,0 @@
-This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking ec2-52-81-94-45.cn-north-1.compute.amazonaws.com.cn (be patient)
-Total of 120 requests completed
