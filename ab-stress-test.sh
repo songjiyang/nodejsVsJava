@@ -1,6 +1,6 @@
 now=`date +%Y%m%d%H%M%S`
-c=100
-n=1000
+c=1000
+n=10000
 warmC=10
 warmN=100
 dir=stress_record/$c_$n_$now
