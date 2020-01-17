@@ -1,5 +1,5 @@
 now=`date +%Y%m%d%H%M%S`
-c=2000
+c=5000
 n=10000
 warmC=10
 warmN=100
