@@ -4,3 +4,7 @@ spring:
     mongodb:
       uri: mongodb://ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn:27017/test
 #     ec2-52-81-100-48.cn-north-1.compute.amazonaws.com.cn
+
+server:
+  tomcat:
+    max-threads: 500
