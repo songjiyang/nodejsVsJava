@@ -3,7 +3,7 @@
     {
       "name": "stress-node",
       "script": "app.js",
-      "instances": "2",
+      "instances": "4",
       "exec_mode": "cluster_mode",
       "error_file": "logs/node-app.stderr.log",
       "out_file": "logs/node-app.stdout.log",
