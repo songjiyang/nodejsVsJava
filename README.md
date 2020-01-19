@@ -297,6 +297,7 @@ https://github.com/songjiyang/nodejsVsJava
 23|Java|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1669.40
 
 ![Pod](http://pic.sjoe.top/blog/181579426741_.pic_hd.jpg)
+![柱状图](http://pic.sjoe.top/blog/191579432911_.pic.jpg)
 
 - 并发改为1000情况下，可以看到java在三个接口都和Node持平，甚至胜于Node
 - JavaCpu的使用低于Node的使用，内存高于Node的使用
@@ -318,6 +319,7 @@ https://github.com/songjiyang/nodejsVsJava
 25|Node(pm2)|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1529.01
 25|Java|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1689.42
 
+![柱状图](http://pic.sjoe.top/blog/201579433163_.pic.jpg)
 - 在并发为2000情况下java都略胜于Node, 监控和之前一致
 - 增加到5000并发
 
