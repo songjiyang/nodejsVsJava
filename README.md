@@ -258,6 +258,82 @@ https://github.com/songjiyang/nodejsVsJava
 - 对于更高的并发，以及更好的系统资源下哪个更好一点需要进一步测试
 
 至于如何选择，从性能方面来看，要看业务代码主要是用来做什么，但我们常用的后台应该涉及的IO更多一点，数据库的增删改查也是查询最多，从这方面考虑推荐用Node，从其他角度来看，Java有强类型，良好的语言规范等等
+
+
+# 追加
+
+后来在查看为什么java会比Node的io这么慢时，发现自己犯了一个严重的错误，java的查询mongo没有带projection, 就是filed.include那块代码，导致java从mongodb取数据时，远比Node取的数据多，所以io性能不如java,下面将补充对listQuestionaire重新测试， 条件以测试结尾时的条件，单个Pod, Tomcat 500个最大线程，pm2 4个实例
+```
+        Query query = new Query();
+        Field field = query.fields();
+        field.include("_id");
+        field.include("suggestion_id");
+        field.include("user_id");
+        field.include("openid");
+        query.limit(100);
+        List<Answer> answers = template.find(query, Answer.class);
+```
+批次|语言|api|并发量 | 请求数| cpu请求和限制|内存请求和限制 | 吞吐量
+---|---|---|---|---|---|---|---
+21|Node(pm2 4实例)|hello|1000 | 10000 |3500m | 5000Mi |1561.58
+21|Java|hello|1000 | 10000 |3500m | 5000Mi |2513.87
+21|Node(pm2)|compute|1000 | 10000 |3500m | 5000Mi |3137.15
+21|Java|compute|1000 | 10000 |3500m | 5000Mi |3963.56
+21|Node(pm2)|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1375.73
+21|Java|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1728.49
+-|-|-|- | - |- | - |-
+22|Node(pm2 4实例)|hello|1000 | 10000 |3500m | 5000Mi |3603.90
+22|Java|hello|1000 | 10000 |3500m | 5000Mi |3179.34
+22|Node(pm2)|compute|1000 | 10000 |3500m | 5000Mi |1666.97
+22|Java|compute|1000 | 10000 |3500m | 5000Mi |2540.11
+22|Node(pm2)|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1558.75
+22|Java|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1705.15
+-|-|-|- | - |- | - |-
+23|Node(pm2 4实例)|hello|1000 | 10000 |3500m | 5000Mi |1684.95
+23|Java|hello|1000 | 10000 |3500m | 5000Mi |2452.82
+23|Node(pm2)|compute|1000 | 10000 |3500m | 5000Mi |4045.12
+23|Java|compute|1000 | 10000 |3500m | 5000Mi |6526.49
+23|Node(pm2)|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1601.06
+23|Java|listQuestionaire|1000 | 10000 |3500m | 5000Mi |1669.40
+
+![Pod](http://pic.sjoe.top/blog/181579426741_.pic_hd.jpg)
+
+- 并发改为1000情况下，可以看到java在三个接口都和Node持平，甚至胜于Node
+- JavaCpu的使用低于Node的使用，内存高于Node的使用
+- 增加到2000并发
+
+批次|语言|api|并发量 | 请求数| cpu请求和限制|内存请求和限制 | 吞吐量
+---|---|---|---|---|---|---|---
+24|Node(pm2 4实例)|hello|2000 | 10000 |3500m | 5000Mi |3504.76
+24|Java|hello|2000 | 10000 |3500m | 5000Mi |3968.59
+24|Node(pm2)|compute|2000 | 10000 |3500m | 5000Mi |1358.74
+24|Java|compute|2000 | 10000 |3500m | 5000Mi |2230.48
+24|Node(pm2)|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1413.38
+24|Java|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1655.60
+-|-|-|- | - |- | - |-
+25|Node(pm2 4实例)|hello|2000 | 10000 |3500m | 5000Mi |2930.40
+25|Java|hello|2000 | 10000 |3500m | 5000Mi |3929.74
+25|Node(pm2)|compute|2000 | 10000 |3500m | 5000Mi |1607.64
+25|Java|compute|2000 | 10000 |3500m | 5000Mi |2094.14
+25|Node(pm2)|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1529.01
+25|Java|listQuestionaire|2000 | 10000 |3500m | 5000Mi |1689.42
+
+- 在并发为2000情况下java都略胜于Node, 监控和之前一致
+- 增加到5000并发
+
+批次|语言|api|并发量 | 请求数| cpu请求和限制|内存请求和限制 | 吞吐量
+---|---|---|---|---|---|---|---
+26|Node(pm2 4实例)|hello|5000 | 10000 |3500m | 5000Mi |3775.58
+26|Java|hello|5000 | 10000 |3500m | 5000Mi |4239.99
+26|Node(pm2)|compute|5000 | 10000 |3500m | 5000Mi |1752.90
+26|Java|compute|5000 | 10000 |3500m | 5000Mi |2177.67
+26|Node(pm2)|listQuestionaire|5000 | 10000 |3500m | 5000Mi |1728.88
+26|Java|listQuestionaire|5000 | 10000 |3500m | 5000Mi |1735.59
+
+- 还是差不多各有20%的错误响应，这次的不做比较
+
+# 二次总结
+因为个人的失误，差点导致对本次压测结果产生错误的结论，通过对上述的追加测试，可以得出Java在各个方面都有着良好的性能，都和Node持平或胜于Node。
 # 参考
 
 [1] [不同编程语言Web压测](https://github.com/bopeng87/yunqi-frontend/invitation)
