@@ -64,7 +64,9 @@ https://github.com/songjiyang/nodejsVsJava
 4|Java|compute|100 | 1000 |1000m | 1024Mi |366.72
 4|Node|listQuestionaire|100 | 1000 |1000m | 1024Mi |18.93
 4|Java|listQuestionaire|100 | 1000 |1000m | 1024Mi |13.94
+
 ![柱状图](http://pic.sjoe.top/blog/101579416841_.pic_hd.jpg)
+
 - 这里看到node的计算能力竟然超过了java，推测可能试因为在1个CPU的情况的java多线程会不断切换导致，下面尝试使用2个CPU, 并且Node开启pm2启动两个实例
 - 查询Mongo数据库的能力相比上面差很多，而且还会出现超时的情况,这里不清楚原因，可能和mongo数据库有关，下面尝试使用内网数据再做比较
 - 这里还发现一个问题是java的内存使用限制1G但还是会超过1G, 看到一篇文章说道java8的jvm默认会使用宿主机的内存，[文章](https://blog.csdn.net/Jerry_Pan1990/article/details/101773313)
