@@ -10,10 +10,8 @@ server:
     max-threads: 500
     accesslog:
       enabled: true
-    basedir: tomcat
 logging:
   level:
     org:
-      apache:
-        tomcat: DEBUG
-        catalina: DEBUG
+      springframework:
+        data: debug

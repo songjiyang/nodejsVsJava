@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Field;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,11 @@ public class StressController {
     @RequestMapping(value = "/listQuestionaire")
     public CommonResult listQuesionaire(){
         Query query = new Query();
+        Field field = query.fields();
+        field.include("_id");
+        field.include("suggestion_id");
+        field.include("user_id");
+        field.include("openid");
         query.limit(100);
         List<Answer> answers = template.find(query, Answer.class);
 
