@@ -1,0 +1,44 @@
+This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn (be patient)
+
+
+Server Software:        openresty/1.15.8.1
+Server Hostname:        ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn
+Server Port:            80
+
+Document Path:          /node/api/v1/listQuestionaire
+Document Length:        14901 bytes
+
+Concurrency Level:      5000
+Time taken for tests:   6.996 seconds
+Complete requests:      10000
+Failed requests:        2225
+   (Connect: 0, Receive: 0, Length: 2225, Exceptions: 0)
+Non-2xx responses:      2225
+Total transferred:      118681075 bytes
+HTML transferred:       116262450 bytes
+Requests per second:    1429.42 [#/sec] (mean)
+Time per request:       3497.927 [ms] (mean)
+Time per request:       0.700 [ms] (mean, across all concurrent requests)
+Transfer rate:          16566.88 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0  481 758.6    176    3053
+Processing:     0 1063 1082.1    518    4150
+Waiting:        0 1061 1083.2    517    4150
+Total:          1 1544 1441.4   1060    6368
+
+Percentage of the requests served within a certain time (ms)
+  50%   1060
+  66%   1890
+  75%   2642
+  80%   2901
+  90%   3593
+  95%   4209
+  98%   5275
+  99%   5354
+ 100%   6368 (longest request)
