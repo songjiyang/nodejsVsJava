@@ -2,4 +2,3 @@ java/target
 nodejs/node_modules
 .idea
 nodejs/logs
-stress_record/
