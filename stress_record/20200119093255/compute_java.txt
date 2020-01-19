@@ -1,0 +1,42 @@
+This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn (be patient)
+
+
+Server Software:        openresty/1.15.8.1
+Server Hostname:        ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn
+Server Port:            80
+
+Document Path:          /java/api/v1/compute
+Document Length:        51 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   3.937 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      2070000 bytes
+HTML transferred:       510000 bytes
+Requests per second:    2540.11 [#/sec] (mean)
+Time per request:       393.683 [ms] (mean)
+Time per request:       0.394 [ms] (mean, across all concurrent requests)
+Transfer rate:          513.48 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    3   7.5      0      37
+Processing:     2  379 269.8    278    1974
+Waiting:        2  378 269.6    278    1974
+Total:          2  381 269.6    279    1996
+
+Percentage of the requests served within a certain time (ms)
+  50%    279
+  66%    316
+  75%    449
+  80%    569
+  90%    807
+  95%    974
+  98%   1154
+  99%   1233
+ 100%   1996 (longest request)
