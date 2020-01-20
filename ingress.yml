@@ -7,14 +7,14 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn
+    - host: ip-172-31-26-49.cn-northwest-1.compute.internal
       http:
         paths:
           - path: /java(/|$)(.*)
             backend:
               serviceName: stress-java
               servicePort: 8080
-    - host: ec2-52-82-10-77.cn-northwest-1.compute.amazonaws.com.cn
+    - host: ip-172-31-26-49.cn-northwest-1.compute.internal
       http:
         paths:
           - path: /node(/|$)(.*)
