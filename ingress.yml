@@ -7,14 +7,14 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: ip-172-31-26-49.cn-northwest-1.compute.internal
+    - host: stress.com
       http:
         paths:
           - path: /java(/|$)(.*)
             backend:
               serviceName: stress-java
               servicePort: 8080
-    - host: ip-172-31-26-49.cn-northwest-1.compute.internal
+    - host: stress.com
       http:
         paths:
           - path: /node(/|$)(.*)
